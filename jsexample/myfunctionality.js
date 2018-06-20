@@ -274,8 +274,7 @@ var TestTokenABI = [
     }
   ];
 
-
-  var TestTokenAddress = "0x30753e4a8aad7f8597332e813735def5dd395028";
+  var TestTokenAddress = "0x2c2b9c9a4a25e24b174f26114e8926a9f2128fe4";
   var TestTokenContract = web3.eth.contract(TestTokenABI).at(TestTokenAddress);
   
   web3.eth.getAccounts(function(error, accounts) {
@@ -305,5 +304,14 @@ var TestTokenABI = [
     });
   });
 
+  $("#transferButton").click(function() {
+    var newAddress = $("#transferValue").val();
+    TestTokenContract.transfer(newAddress, 2, function(error, result){
+      if (error) {
+        console.log(error);
+      }
+     alert('Transfer sccueeded');
+    });
+  });
 
 
