@@ -5,3 +5,5 @@
 - Solidity patterns
 - Web3.js code samples
 - Hyperledger Farbric Composer demos
+- Composer infrastructure scripts
+

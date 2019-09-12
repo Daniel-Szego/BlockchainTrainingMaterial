@@ -1,0 +1,70 @@
+# Start development environment and deploy a business network 
+
+cd fabric-dev-servers
+./startFabric.sh
+
+
+# Generate peer admin card for administration: only on dev environment
+
+./createPeerAdminCard.sh
+
+# Create empty bna folder structure
+
+yo hyperldger-composer
+
+# Create bna from source file
+
+composer archive create --sourceType dir --sourceName . -a testnetwork.bna
+
+# deploy business network
+
+composer network install --card PeerAdmin@hlfv1 --archiveFile testnetwork.bna
+
+# getting deployed full stuff name and version (archive file name might be different)
+
+composer archive list -a testnetwork.bna
+
+# start business network 
+
+composer network start --networkName testnetwork --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+
+# import network card identity
+
+composer card import --file networkadmin.card
+
+# test if stuffs are cool
+
+composer network ping --card admin@testnetwork
+
+# rest server
+
+composer-rest-server
+
+(card name admin@testnetworkk, no namespace, yes test interface, yes event publication, no for the rest)
+
+# browser test 
+http://localhost:3000/explorer
+
+# create angular sceleton
+
+yo hyperledger-composer:angular
+
+(card: admin@sequence, existing API, no namespace)
+
+# starting the network
+
+npm start
+
+# browser test 
+
+http://localhost:4200
+
+
+
+
+
+
+
+
+
+
